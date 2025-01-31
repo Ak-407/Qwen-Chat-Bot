@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: my-app
+    env: python
+    buildCommand: |
+      curl -LO https://ollama.com/download/linux/latest
+      chmod +x ./ollama
+      mv ./ollama /usr/local/bin
+      pip install -r requirements.txt
+    startCommand: python app.py
