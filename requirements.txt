@@ -1,5 +1,6 @@
 Flask
 ollama
+pytesseract
 requests
 beautifulsoup4
 SQLAlchemy
