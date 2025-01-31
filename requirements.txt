@@ -5,9 +5,5 @@ pdf2image
 requests
 beautifulsoup4
 SQLAlchemy
-PIL
-os
-re
-subprocess
-BytesIO
+Pillow 
 gunicorn
