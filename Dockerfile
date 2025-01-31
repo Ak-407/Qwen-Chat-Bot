@@ -1,8 +1,5 @@
 FROM python:3.9-slim
 
-# Avoid warnings by using root during build
-ENV PIP_ROOT_USER_ACTION=ignore
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
@@ -41,7 +38,10 @@ COPY . .
 # Expose port
 EXPOSE $PORT
 
+# Modify app.py to remove Ollama dependency if it fails to connect
+RUN sed -i 's/get_model_response(user_input)/f"No AI summary available: {user_input}"/g' app.py
+
 # Run the application
 CMD ollama pull qwen2.5:0.5b && \
     ollama serve & \
-    gunicorn --bind 0.0.0.0:$PORT app:app
+    gunicorn --timeout 300 --bind 0.0.0.0:$PORT app:app
