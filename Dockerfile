@@ -17,7 +17,8 @@ RUN echo 'export PATH=$PATH:/root/.ollama' >> ~/.bashrc
 
 # Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install pytesseract flask gunicorn
+RUN pip install pytesseract flask gunicorn ollama pytesseract pdf2image requests beautifulsoup4 SQLAlchemy Pillow 
+
 
 # Set up the working directory
 WORKDIR /app
