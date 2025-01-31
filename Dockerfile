@@ -17,8 +17,10 @@ RUN curl -fsSL https://ollama.com/install.sh | sh
 # Set working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
+# Copy application files first
+COPY . .
+
+# Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt \
     && pip install --no-cache-dir \
@@ -32,12 +34,9 @@ RUN pip install --no-cache-dir --upgrade pip \
     SQLAlchemy \
     Pillow
 
-# Copy application files
-COPY . .
-
 # Modify get_model_response function to handle Ollama connection issues
 RUN sed -i 's/def get_model_response(user_input):/def get_model_response(user_input):\n    try:/' app.py && \
-    sed -i 's/        return result.stdout.strip()/        return result.stdout.strip()\n    except Exception as e:\n        return f"No AI summary available: {user_input}"/' app.py
+    sed -i 's/        return result.stdout.strip()/        return result.stdout.strip()\n    except Exception as e:\n        print(f"Ollama error: {e}")\n        return f"No AI summary available: {user_input}"/' app.py
 
 # Expose port
 EXPOSE $PORT
