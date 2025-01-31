@@ -129,8 +129,12 @@
 
 
 import ollama
-response = ollama. chat(model="deepseek-rl", messages=[
-"role": "user"
-"content": "Tell me 5 cyber security good practices",
-3,
-print(response ["message"] ["content "])
+
+response = ollama.chat(
+    model="deepseek-rl",
+    messages=[
+        {"role": "user", "content": "Tell me 5 cyber security good practices"}
+    ]
+)
+
+print(response["message"]["content"])
