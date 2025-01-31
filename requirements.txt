@@ -6,4 +6,8 @@ requests
 beautifulsoup4
 SQLAlchemy
 PIL
+os
+re
+subprocess
+BytesIO
 gunicorn
