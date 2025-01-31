@@ -29,4 +29,4 @@ RUN pip install pytesseract flask gunicorn ollama pytesseract pdf2image requests
 COPY . /app
 
 # Run Ollama with the desired model (qwen2.5:0.5b)
-CMD /root/.ollama/ollama pull qwen2.5:0.5b & gunicorn app:app --bind 0.0.0.0:5000
+CMD ollama pull qwen2.5:0.5b & gunicorn app:app --bind 0.0.0.0:5000
