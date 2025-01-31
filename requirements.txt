@@ -3,3 +3,4 @@ ollama
 requests
 beautifulsoup4
 SQLAlchemy
+gunicorn
