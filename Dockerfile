@@ -35,11 +35,12 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Copy application files
 COPY . .
 
+# Modify get_model_response function to handle Ollama connection issues
+RUN sed -i 's/def get_model_response(user_input):/def get_model_response(user_input):\n    try:/' app.py && \
+    sed -i 's/        return result.stdout.strip()/        return result.stdout.strip()\n    except Exception as e:\n        return f"No AI summary available: {user_input}"/' app.py
+
 # Expose port
 EXPOSE $PORT
-
-# Modify app.py to remove Ollama dependency if it fails to connect
-RUN sed -i 's/get_model_response(user_input)/f"No AI summary available: {user_input}"/g' app.py
 
 # Run the application
 CMD ollama pull qwen2.5:0.5b && \
