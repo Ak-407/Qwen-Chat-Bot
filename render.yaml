@@ -3,6 +3,7 @@ services:
     name: my-app
     env: python
     buildCommand: |
+      apt-get update && apt-get install -y curl
       curl -LO https://ollama.com/download/linux/latest
       chmod +x ./ollama
       mv ./ollama /usr/local/bin
